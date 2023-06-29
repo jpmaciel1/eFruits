@@ -1,0 +1,34 @@
+{
+  "frutas": [
+    {
+      "id": 1,
+      "nome": "maçã",
+      "preco": 2.5,
+      "imagem": "caminho/para/imagem/maca.jpg"
+    },
+    {
+      "id": 2,
+      "nome": "pêra",
+      "preco": 1.75,
+      "imagem": "caminho/para/imagem/pera.jpg"
+    },
+    {
+      "id": 3,
+      "nome": "banana",
+      "preco": 0.5,
+      "imagem": "caminho/para/imagem/banana.jpg"
+    },
+    {
+      "id": 4,
+      "nome": "abacaxi",
+      "preco": 4.0,
+      "imagem": "caminho/para/imagem/abacaxi.jpg"
+    },
+    {
+      "id": 5,
+      "nome": "manga",
+      "preco": 3.25,
+      "imagem": "caminho/para/imagem/manga.jpg"
+    }
+  ]
+}
