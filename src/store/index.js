@@ -13,6 +13,21 @@ const cartSlice = createSlice({
         state.splice(index, 1);
       }
     },
+    updateQuantity: (state, action) => {
+      const { id, quantity } = action.payload;
+      const itemIndex = state.findIndex((item) => item.id === id);
+      if (itemIndex !== -1) {
+        state[itemIndex].quantity = quantity;
+      }
+    },
+    setQuantity: (state, action) => {
+      const { id, quantity } = action.payload;
+      const myItem = state.find((item) => item.id === id);
+      if (myItem) {
+        myItem.quantity = quantity;
+      }
+    },
+
   },
 });
 
@@ -22,6 +37,6 @@ const store = configureStore({
   },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, updateQuantity, setQuantity } = cartSlice.actions;
 
 export default store;

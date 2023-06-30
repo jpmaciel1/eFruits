@@ -21,3 +21,9 @@ export const Container = styled.div`
     padding: 0 40px;
     margin: 0 auto;
 `;
+
+export const SearchBarWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+`;
