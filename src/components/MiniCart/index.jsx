@@ -3,8 +3,12 @@ import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { useSelector } from 'react-redux';
+import CartList from '../cartList';
 
 export default function MiniCart() {
+  const cart = useSelector((state) => state.cart);
+
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -16,7 +20,6 @@ export default function MiniCart() {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-
     setState({ ...state, [anchor]: open });
   };
 
@@ -27,7 +30,11 @@ export default function MiniCart() {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <h1>AQUI VAI MEU CARD DE COMPRADOS</h1>
+      {cart.length === 0 ? (
+        <p>O carrinho está vazio.</p>
+      ) : (
+        <CartList />
+      )}
     </Box>
   );
 

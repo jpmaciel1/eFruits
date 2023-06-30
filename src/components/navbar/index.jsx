@@ -7,7 +7,7 @@ import FilledInput from '@mui/material/FilledInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Button from '@mui/material/Button';
-import { Container, LogoWrapper, Logo, IconWrapper } from './styled';
+import { Container, LogoWrapper, Logo, IconWrapper, SearchBarWrapper } from './styled';
 import MiniCart from '../MiniCart';
 
 function Navbar() {
@@ -17,7 +17,8 @@ function Navbar() {
         <LogoWrapper>
           <Logo src="images/logo.png" alt="logo" />
         </LogoWrapper>
-        <div className="search-bar">
+
+        <SearchBarWrapper>
           <FilledInput
             id="search-bar"
             type="text"
@@ -32,12 +33,11 @@ function Navbar() {
               </InputAdornment>
             )}
           />
-        </div>
+        </SearchBarWrapper>
         <IconWrapper>
           <Button color="secondary">
             <AccountCircleIcon />
           </Button>
-
           <MiniCart />
         </IconWrapper>
       </Container>

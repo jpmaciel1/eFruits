@@ -13,12 +13,10 @@ export const Container = styled.div`
     margin-bottom: 40px;
 `;
 
-export const SearchBar = styled.input`
-    width: 300px;
-    padding: 10px;
-    background: white;
-    border: none;
-    border-radius: 5px;
+export const SearchBarWrapper = styled.div`
+    @media (max-width: 600px) {
+        display: none;
+    }
 `;
 
 export const Logo = styled.img`
@@ -31,6 +29,7 @@ export const LogoWrapper = styled.div`
     height: 3rem;
     width: 150px;
 `;
+
 export const IconWrapper = styled.div`
     width: 100px;
     margin: 40px;

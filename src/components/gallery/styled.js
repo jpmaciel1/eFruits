@@ -10,8 +10,14 @@ border-radius: 10px;
 `;
 
 export const Wrapper = styled.div`
-width: 300px;
-height: 300px;
+width: 200px;
+height: 200px;
 background: white;
 border-radius: 10px;
+`;
+
+export const Container = styled.div`
+    max-width: 1300px;
+    padding: 0 40px;
+    margin: 0 auto;
 `;
