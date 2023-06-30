@@ -5,13 +5,18 @@ import { IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import FilledInput from '@mui/material/FilledInput';
 import InputAdornment from '@mui/material/InputAdornment';
-import { Container } from './styled';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Button from '@mui/material/Button';
+import { Container, LogoWrapper, Logo, IconWrapper } from './styled';
+import MiniCart from '../MiniCart';
 
 function Navbar() {
   return (
     <nav>
       <Container>
-        <div className="logo">Logo</div>
+        <LogoWrapper>
+          <Logo src="images/logo.png" alt="logo" />
+        </LogoWrapper>
         <div className="search-bar">
           <FilledInput
             id="search-bar"
@@ -28,9 +33,13 @@ function Navbar() {
             )}
           />
         </div>
-        <div className="login-button">
-          <button type="button">Login</button>
-        </div>
+        <IconWrapper>
+          <Button color="secondary">
+            <AccountCircleIcon />
+          </Button>
+
+          <MiniCart />
+        </IconWrapper>
       </Container>
     </nav>
   );

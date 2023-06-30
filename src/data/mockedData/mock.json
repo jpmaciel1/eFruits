@@ -2,33 +2,33 @@
   "frutas": [
     {
       "id": 1,
-      "nome": "maçã",
+      "nome": "Maçã",
       "preco": 2.5,
-      "imagem": "caminho/para/imagem/maca.jpg"
+      "imagem": "images/apple.jpg"
     },
     {
       "id": 2,
-      "nome": "pêra",
+      "nome": "Pêra",
       "preco": 1.75,
-      "imagem": "caminho/para/imagem/pera.jpg"
+      "imagem": "images/pear.jpg"
     },
     {
       "id": 3,
-      "nome": "banana",
+      "nome": "Banana",
       "preco": 0.5,
-      "imagem": "caminho/para/imagem/banana.jpg"
+      "imagem": "images/banana.jpg"
     },
     {
       "id": 4,
-      "nome": "abacaxi",
+      "nome": "Abacaxi",
       "preco": 4.0,
-      "imagem": "caminho/para/imagem/abacaxi.jpg"
+      "imagem": "images/pineapple.jpg"
     },
     {
       "id": 5,
-      "nome": "manga",
+      "nome": "Manga",
       "preco": 3.25,
-      "imagem": "caminho/para/imagem/manga.jpg"
+      "imagem": "images/mango.jpg"
     }
   ]
 }
