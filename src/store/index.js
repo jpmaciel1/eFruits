@@ -5,12 +5,24 @@ const cartSlice = createSlice({
   initialState: [],
   reducers: {
     addToCart: (state, action) => {
-      state.push(action.payload);
+      const { id } = action.payload;
+      const existingItem = state.find((item) => item.id === id);
+
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        state.push({ ...action.payload, quantity: 1 });
+      }
     },
     removeFromCart: (state, action) => {
-      const index = state.findIndex((item) => item.id === action.payload.id);
-      if (index !== -1) {
-        state.splice(index, 1);
+      const { id } = action.payload;
+      const itemIndex = state.findIndex((item) => item.id === id);
+      if (itemIndex !== -1) {
+        if (state[itemIndex].quantity > 1) {
+          state[itemIndex].quantity -= 1;
+        } else {
+          state.splice(itemIndex, 1);
+        }
       }
     },
     updateQuantity: (state, action) => {

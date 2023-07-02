@@ -1,42 +1,41 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Paper, Typography, Select, MenuItem, Button } from '@mui/material';
-import { removeFromCart, setQuantity } from '../../store';
-import { Container, ImageWrapper, Image, Card } from './styled';
+import { Paper, Typography, IconButton, Button } from '@mui/material';
+import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox';
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import { useRouter } from 'next/navigation';
+import { removeFromCart, addToCart } from '../../store';
+import { Container, ImageWrapper, Image, Card, QuantityContainer, CheckoutButtonWrapper } from './styled';
 
 function CartList() {
+  const router = useRouter();
   const cartItems = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
-  const handleRemoveAll = (item) => {
-    Array.from({ length: item.quantity }).forEach(() => {
-      dispatch(removeFromCart(item));
-    });
+  const handleRemoveOne = (item) => {
+    dispatch(removeFromCart(item));
   };
 
-  const handleQuantityChange = (itemId, event) => {
-    const quantity = parseInt(event.target.value, 10);
-    dispatch(setQuantity({ id: itemId, quantity }));
+  const handleAddOne = (item) => {
+    dispatch(addToCart(item));
   };
 
-  const groupedItems = cartItems.reduce((acc, item) => {
-    const existingItem = acc.find((i) => i.id === item.id);
-    if (existingItem) {
-      existingItem.quantity += 1;
-    } else {
-      acc.push({ ...item, quantity: 1 });
-    }
-    return acc;
-  }, []);
-
+  const renderQuantityControl = (item) => (
+    <QuantityContainer>
+      <IconButton variant="contained" onClick={() => handleRemoveOne(item)} style={{ maxWidth: '20px', height: '20px' }}><IndeterminateCheckBoxIcon /></IconButton>
+      <Typography variant="h6">{item.quantity}</Typography>
+      <IconButton variant="contained" color="primary" onClick={() => handleAddOne(item)} style={{ width: '20px', height: '20px' }}><AddBoxIcon /></IconButton>
+    </QuantityContainer>
+  );
+  console.log('!!!', cartItems);
   return (
     <div>
-      <h2>Carrinho de Compras</h2>
-      {groupedItems.length === 0 ? (
+      <Typography variant="h5" textAlign="center">Carrinho de Compras</Typography>
+      {cartItems.length === 0 ? (
         <p>O carrinho está vazio.</p>
       ) : (
         <Container>
-          {groupedItems.map((item) => {
+          {cartItems.map((item) => {
             const valorTotal = item.preco * item.quantity;
             const valorFormatado = `R$ ${valorTotal.toFixed(2)}`;
 
@@ -48,25 +47,12 @@ function CartList() {
                       <Image src={item.imagem} alt="fruit" />
                     </ImageWrapper>
                     <Typography variant="h7">{item.nome}</Typography>
-                    <p>
-                      Quantidade:
-                      {' '}
-                      <Select
-                        value={item.quantity}
-                        onChange={(event) => handleQuantityChange(item.id, event)}
-                      >
-                        {Array.from({ length: 10 }).map((_, index) => (
-                          // eslint-disable-next-line react/no-array-index-key
-                          <MenuItem key={index} value={index}>{index}</MenuItem>
-                        ))}
-                      </Select>
-                    </p>
+                    {renderQuantityControl(item)}
                     <p>
                       Valor Total:
                       {' '}
-                      {Number.isNaN(valorTotal) ? 'R$ 0.00' : valorFormatado}
+                      {valorFormatado}
                     </p>
-                    <Button onClick={() => handleRemoveAll(item)}>Remover todas as unidades</Button>
                   </Container>
                 </Paper>
               </Card>
@@ -74,6 +60,15 @@ function CartList() {
           })}
         </Container>
       )}
+      <CheckoutButtonWrapper>
+        <Button
+          variant="contained"
+          onClick={() => router.push('/checkout')}
+          fullWidth
+        >
+          Finalizar Compra
+        </Button>
+      </CheckoutButtonWrapper>
     </div>
   );
 }

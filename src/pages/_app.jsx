@@ -1,19 +1,17 @@
-'use client';
-
 import React from 'react';
-import { ThemeProvider } from '@mui/material/styles';
 import { Provider } from 'react-redux';
-import Navbar from '../components/navbar';
-import Gallery from '../components/gallery';
+import { ThemeProvider } from '@mui/material/styles';
 import store from '../store';
+import '../app/globals.css';
+import Navbar from '../components/navbar';
 import theme from '../utils/theme/theme';
 
-export default function Home() {
+export default function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <Navbar />
-        <Gallery />
+        <Component {...pageProps} store={store} />
       </ThemeProvider>
     </Provider>
   );

@@ -27,20 +27,18 @@ export default function MiniCart() {
     <Box
       sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
       role="presentation"
-      onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
       {cart.length === 0 ? (
         <p>O carrinho está vazio.</p>
       ) : (
-        <CartList />
+        <CartList onClick={(event) => event.stopPropagation()} />
       )}
     </Box>
   );
 
   return (
     <div>
-
       <React.Fragment key="right">
         <Button onClick={toggleDrawer('right', true)}><ShoppingCartIcon color="secondary" /></Button>
         <Drawer
@@ -51,7 +49,6 @@ export default function MiniCart() {
           {list('right')}
         </Drawer>
       </React.Fragment>
-
     </div>
   );
 }

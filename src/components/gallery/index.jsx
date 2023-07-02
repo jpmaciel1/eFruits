@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -9,6 +7,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import FilledInput from '@mui/material/FilledInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import data from '../../data/mockedData/mock.json';
+import { CurrencyFormat } from '../../utils/formatters';
+
 import { Image, Wrapper, Container, SearchBarWrapper } from './styled';
 import { addToCart } from '../../store';
 
@@ -16,14 +16,6 @@ function Gallery() {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredData, setFilteredData] = useState([]);
-
-  const CurrencyFormat = (value) => {
-    const formattedValue = value.toLocaleString('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-    });
-    return formattedValue;
-  };
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
@@ -56,9 +48,10 @@ function Gallery() {
                 <SearchIcon />
               </IconButton>
             </InputAdornment>
-            )}
+          )}
         />
       </SearchBarWrapper>
+
       <Container>
         <Grid container spacing={4}>
           {searchQuery !== '' ? (

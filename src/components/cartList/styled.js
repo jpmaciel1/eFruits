@@ -21,6 +21,18 @@ export const Image = styled.img`
 `;
 
 export const ImageWrapper = styled.div`
-    width: 50px;
-    height: 50px;
+    width: 100%;
+    height: 100px;
+`;
+
+export const QuantityContainer = styled.div`
+    width: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`;
+export const CheckoutButtonWrapper = styled.div`
+    width: 100%;
+    float: bottom;
+    padding: 0 5px;
 `;
