@@ -21,7 +21,7 @@ border-radius: 4px;
 export const Container = styled.div`
     max-width: 1300px;
     padding: 0 40px;
-    margin: 0 auto;
+    margin: 10px auto;
 `;
 
 export const SearchBarWrapper = styled.div`

@@ -62,7 +62,7 @@ function Gallery() {
       <Container>
         <Grid container spacing={4}>
           {searchQuery !== '' ? (
-            filteredData.map((item, key) => (
+            filteredData.map((item) => (
               <Grid item xs={12} md={3} sm={4} key={item.id} display="flex" justifyContent="center">
                 <Paper elevation={3}>
                   <Wrapper>
@@ -78,7 +78,6 @@ function Gallery() {
                     variant="contained"
                     onClick={() => handleAddToCart(item)}
                     fullWidth
-                    id={key === 0 ? 'btn' : null}
                   >
                     Comprar
                   </Button>
@@ -86,7 +85,7 @@ function Gallery() {
               </Grid>
             ))
           ) : (
-            data.frutas.map((item, key) => (
+            data.frutas.map((item) => (
               <Grid item xs={12} md={3} sm={4} key={item.id} display="flex" justifyContent="center">
                 <Paper elevation={3}>
                   <Wrapper>
@@ -102,7 +101,6 @@ function Gallery() {
                     variant="contained"
                     onClick={() => handleAddToCart(item)}
                     fullWidth
-                    id={key === 0 ? 'btn' : null}
                   >
                     Comprar
                   </Button>

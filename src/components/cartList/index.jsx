@@ -1,11 +1,10 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Paper, Typography, IconButton, Button } from '@mui/material';
+import { Paper, Typography, IconButton } from '@mui/material';
 import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox';
 import AddBoxIcon from '@mui/icons-material/AddBox';
-import { useRouter } from 'next/navigation';
 import { removeFromCart, addToCart } from '../../store';
-import { Container, ImageWrapper, Image, Card, QuantityContainer, CheckoutButtonWrapper } from './styled';
+import { Container, ImageWrapper, Image, Card, QuantityContainer } from './styled';
 
 function CartList() {
   const cartItems = useSelector((state) => state.cart);
@@ -21,9 +20,24 @@ function CartList() {
 
   const renderQuantityControl = (item) => (
     <QuantityContainer>
-      <IconButton variant="contained" onClick={() => handleRemoveOne(item)} style={{ maxWidth: '20px', height: '20px' }}><IndeterminateCheckBoxIcon /></IconButton>
+      <IconButton
+        variant="contained"
+        onClick={() => handleRemoveOne(item)}
+        style={{ maxWidth: '20px', height: '20px' }}
+        id="remove-minicart"
+      >
+        <IndeterminateCheckBoxIcon />
+      </IconButton>
       <Typography variant="h6">{item.quantity}</Typography>
-      <IconButton variant="contained" color="primary" onClick={() => handleAddOne(item)} style={{ width: '20px', height: '20px' }}><AddBoxIcon /></IconButton>
+      <IconButton
+        variant="contained"
+        color="primary"
+        onClick={() => handleAddOne(item)}
+        style={{ width: '20px', height: '20px' }}
+        id="add-minicart"
+      >
+        <AddBoxIcon />
+      </IconButton>
     </QuantityContainer>
   );
 

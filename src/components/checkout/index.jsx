@@ -11,7 +11,7 @@ import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { PDFDownloadLink, Document, Page, View, Text, pdf } from '@react-pdf/renderer';
 import { useRouter } from 'next/navigation';
-import { ItemSpecsWrapper, QuantityContainer } from './styled';
+import { ItemSpecsWrapper, QuantityContainer, DownloadLinkWrapper } from './styled';
 import { removeFromCart, addToCart } from '../../store';
 import { CurrencyFormat } from '../../utils/formatters';
 
@@ -160,22 +160,25 @@ function Checkout() {
           </Grid>
           <Grid item xs={12}>
             {pdfBlob ? (
-              <PDFDownloadLink
-                document={(
-                  <Invoice
-                    cartItems={cartItems}
-                    total={CurrencyFormat(calculateTotal())}
-                  />
+              <DownloadLinkWrapper>
+                <PDFDownloadLink
+                  document={(
+                    <Invoice
+                      cartItems={cartItems}
+                      total={CurrencyFormat(calculateTotal())}
+                    />
               )}
-                fileName="nota_fiscal.pdf"
-              >
-                {({ loading }) =>
-                  loading ? 'Gerando PDF...' : 'Baixe sua NF'
+                  fileName="nota_fiscal.pdf"
+                  className="downloadNF"
+                >
+                  {({ loading }) =>
+                    loading ? 'Gerando NF...' : 'Baixe sua NF'
                 }
-              </PDFDownloadLink>
+                </PDFDownloadLink>
+              </DownloadLinkWrapper>
             ) : (
               <Button variant="contained" color="primary" fullWidth onClick={generatePDF}>
-                {isGeneratingPDF ? 'Gerando PDF...' : 'Finalizar compra'}
+                {isGeneratingPDF ? 'Gerando NF...' : 'Finalizar compra'}
               </Button>
             )}
           </Grid>

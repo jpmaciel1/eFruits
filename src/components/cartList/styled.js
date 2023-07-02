@@ -21,7 +21,7 @@ export const Image = styled.img`
 `;
 
 export const ImageWrapper = styled.div`
-    width: 100%;
+    width: 170px;
     height: 100px;
 `;
 
@@ -30,9 +30,4 @@ export const QuantityContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-`;
-export const CheckoutButtonWrapper = styled.div`
-    width: 100%;
-    float: bottom;
-    padding: 0 5px;
 `;

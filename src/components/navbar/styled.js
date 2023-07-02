@@ -13,12 +13,6 @@ export const Container = styled.div`
     margin-bottom: 40px;
 `;
 
-export const SearchBarWrapper = styled.div`
-    @media (max-width: 600px) {
-        display: none;
-    }
-`;
-
 export const Logo = styled.img`
     object-fit: cover;
     width: 100%;
