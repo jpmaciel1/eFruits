@@ -107,7 +107,7 @@ function Checkout() {
   };
 
   return (
-    <Container maxWidth="sm" style={{ margin: '10px 0' }}>
+    <Container maxWidth="sm" style={{ margin: '10px auto' }}>
       <Typography variant="h4" align="center" gutterBottom>
         Checkout
       </Typography>
