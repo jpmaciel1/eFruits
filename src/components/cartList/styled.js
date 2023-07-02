@@ -34,5 +34,6 @@ export const QuantityContainer = styled.div`
 
 export const Main = styled.div`
     height: 93vh;
-    overflow: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
 `;

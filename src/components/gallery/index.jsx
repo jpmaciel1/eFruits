@@ -18,7 +18,9 @@ function Gallery() {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredData, setFilteredData] = useState([]);
-  const notify = (item) => toast.success(`${item} adicionada ao carrinho!`);
+  const notify = (item) => toast.success(`${item} adicionada ao carrinho!`, {
+    position: toast.POSITION.BOTTOM_RIGHT,
+  });
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
