@@ -27,6 +27,7 @@ function LoginForm() {
   return (
     <form onSubmit={handleSubmit}>
       <TextField
+        id="email-field"
         type="email"
         label="Email"
         value={email}
@@ -36,6 +37,7 @@ function LoginForm() {
         required
       />
       <TextField
+        id="password-field"
         type="password"
         label="Password"
         value={password}

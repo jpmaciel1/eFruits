@@ -6,9 +6,9 @@ import { useDispatch } from 'react-redux';
 import SearchIcon from '@mui/icons-material/Search';
 import FilledInput from '@mui/material/FilledInput';
 import InputAdornment from '@mui/material/InputAdornment';
+import { useSnackbar } from 'notistack';
 import data from '../../data/mockedData/mock.json';
 import { CurrencyFormat } from '../../utils/formatters';
-
 import { Image, Wrapper, Container, SearchBarWrapper } from './styled';
 import { addToCart } from '../../store';
 
@@ -17,8 +17,15 @@ function Gallery() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredData, setFilteredData] = useState([]);
 
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleClickVariant = (variant) => () => {
+    enqueueSnackbar('This is a success message!', { variant });
+  };
+
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
+    handleClickVariant('succsess');
   };
 
   const handleSearch = (event) => {
@@ -55,7 +62,7 @@ function Gallery() {
       <Container>
         <Grid container spacing={4}>
           {searchQuery !== '' ? (
-            filteredData.map((item) => (
+            filteredData.map((item, key) => (
               <Grid item xs={12} md={3} sm={4} key={item.id} display="flex" justifyContent="center">
                 <Paper elevation={3}>
                   <Wrapper>
@@ -71,6 +78,7 @@ function Gallery() {
                     variant="contained"
                     onClick={() => handleAddToCart(item)}
                     fullWidth
+                    id={key === 0 ? 'btn' : null}
                   >
                     Comprar
                   </Button>
@@ -78,7 +86,7 @@ function Gallery() {
               </Grid>
             ))
           ) : (
-            data.frutas.map((item) => (
+            data.frutas.map((item, key) => (
               <Grid item xs={12} md={3} sm={4} key={item.id} display="flex" justifyContent="center">
                 <Paper elevation={3}>
                   <Wrapper>
@@ -94,6 +102,7 @@ function Gallery() {
                     variant="contained"
                     onClick={() => handleAddToCart(item)}
                     fullWidth
+                    id={key === 0 ? 'btn' : null}
                   >
                     Comprar
                   </Button>

@@ -23,6 +23,9 @@ export const Logo = styled.img`
     object-fit: cover;
     width: 100%;
     height: 100%;
+    :hover{
+        cursor: pointer;
+    }
 `;
 
 export const LogoWrapper = styled.div`

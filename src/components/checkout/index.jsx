@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Typography, Grid, Paper, Button, IconButton } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import List from '@mui/material/List';
@@ -16,8 +16,6 @@ import { removeFromCart, addToCart } from '../../store';
 import { CurrencyFormat } from '../../utils/formatters';
 
 function Invoice({ cartItems, total }) {
-  const router = useRouter();
-
   return (
     <Document>
       <Page>
@@ -48,6 +46,7 @@ function Invoice({ cartItems, total }) {
 function Checkout() {
   const cartItems = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const router = useRouter();
   const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
   const [pdfBlob, setPdfBlob] = useState(null);
 
@@ -64,6 +63,12 @@ function Checkout() {
   const handleAddOne = (item) => {
     dispatch(addToCart(item));
   };
+  useEffect(() => {
+    const userInfos = JSON.parse(localStorage.getItem('userInfos'));
+    if (!userInfos) {
+      router.push('/');
+    }
+  }, []);
 
   const renderQuantityControl = (item) => (
     <QuantityContainer>
@@ -165,7 +170,7 @@ function Checkout() {
                 fileName="nota_fiscal.pdf"
               >
                 {({ loading }) =>
-                  loading ? 'Gerando PDF...' : 'Download do PDF'
+                  loading ? 'Gerando PDF...' : 'Baixe sua NF'
                 }
               </PDFDownloadLink>
             ) : (

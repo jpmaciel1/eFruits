@@ -8,7 +8,6 @@ import { removeFromCart, addToCart } from '../../store';
 import { Container, ImageWrapper, Image, Card, QuantityContainer, CheckoutButtonWrapper } from './styled';
 
 function CartList() {
-  const router = useRouter();
   const cartItems = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
@@ -27,7 +26,7 @@ function CartList() {
       <IconButton variant="contained" color="primary" onClick={() => handleAddOne(item)} style={{ width: '20px', height: '20px' }}><AddBoxIcon /></IconButton>
     </QuantityContainer>
   );
-  console.log('!!!', cartItems);
+
   return (
     <div>
       <Typography variant="h5" textAlign="center">Carrinho de Compras</Typography>
@@ -60,15 +59,6 @@ function CartList() {
           })}
         </Container>
       )}
-      <CheckoutButtonWrapper>
-        <Button
-          variant="contained"
-          onClick={() => router.push('/checkout')}
-          fullWidth
-        >
-          Finalizar Compra
-        </Button>
-      </CheckoutButtonWrapper>
     </div>
   );
 }

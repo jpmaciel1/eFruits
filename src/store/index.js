@@ -1,4 +1,4 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit';
+import { configureStore, createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../utils/firebaseConfig';
 
@@ -41,27 +41,54 @@ const cartSlice = createSlice({
         myItem.quantity = quantity;
       }
     },
-    login: (state, action) => {
-      const { email, password } = action.payload;
-      signInWithEmailAndPassword(auth, email, password)
-        .then(() => {
-          // Sucesso no login
-          console.log('Usuário logado com sucesso!');
-        })
-        .catch((error) => {
-          // Lidar com erro de login
-          console.error(error);
-        });
-    },
   },
 });
 
+export const login = createAsyncThunk('user/login', async (payload) => {
+  const { email, password } = payload;
+  try {
+    const response = await signInWithEmailAndPassword(auth, email, password);
+    const userInfo = {
+      email: response.user.email,
+      accessToken: response.user.accessToken,
+    };
+    localStorage.setItem('userInfos', JSON.stringify(userInfo));
+    return { status: true };
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+});
+
+const userSlice = createSlice({
+  name: 'user',
+  initialState: {
+    status: false,
+  },
+  reducers: {
+    updateUserStatus: (state, action) => {
+      state.status = action.payload;
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(login.fulfilled, (state, action) => {
+        state.status = action.payload.status;
+      })
+      .addCase(login.rejected, (state, action) => {
+        console.error(action.error);
+      });
+  },
+});
 const store = configureStore({
   reducer: {
     cart: cartSlice.reducer,
+    user: userSlice.reducer,
   },
 });
 
-export const { addToCart, removeFromCart, updateQuantity, setQuantity, login } = cartSlice.actions;
+export const { addToCart, removeFromCart, updateQuantity, setQuantity } = cartSlice.actions;
+
+export const { updateUserStatus } = userSlice.actions;
 
 export default store;
