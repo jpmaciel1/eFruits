@@ -31,3 +31,8 @@ export const QuantityContainer = styled.div`
     justify-content: space-between;
     align-items: center;
 `;
+
+export const Main = styled.div`
+    height: 93vh;
+    overflow: scroll;
+`;

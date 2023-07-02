@@ -38,7 +38,7 @@ export default function PopperPopupState() {
   return (
 
     <div>
-      <Button color="secondary" onClick={handleClick} id="user-button">
+      <Button color="primary" onClick={handleClick} id="user-button">
         <AccountCircleIcon />
       </Button>
       <Popover

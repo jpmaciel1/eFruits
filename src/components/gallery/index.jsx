@@ -6,26 +6,23 @@ import { useDispatch } from 'react-redux';
 import SearchIcon from '@mui/icons-material/Search';
 import FilledInput from '@mui/material/FilledInput';
 import InputAdornment from '@mui/material/InputAdornment';
-import { useSnackbar } from 'notistack';
+import { ToastContainer, toast } from 'react-toastify';
 import data from '../../data/mockedData/mock.json';
 import { CurrencyFormat } from '../../utils/formatters';
 import { Image, Wrapper, Container, SearchBarWrapper } from './styled';
 import { addToCart } from '../../store';
 
+import 'react-toastify/dist/ReactToastify.css';
+
 function Gallery() {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredData, setFilteredData] = useState([]);
-
-  const { enqueueSnackbar } = useSnackbar();
-
-  const handleClickVariant = (variant) => () => {
-    enqueueSnackbar('This is a success message!', { variant });
-  };
+  const notify = (item) => toast.success(`${item} adicionada ao carrinho!`);
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
-    handleClickVariant('succsess');
+    notify(product.nome);
   };
 
   const handleSearch = (event) => {
@@ -109,6 +106,7 @@ function Gallery() {
             ))
           )}
         </Grid>
+        <ToastContainer />
       </Container>
     </>
   );

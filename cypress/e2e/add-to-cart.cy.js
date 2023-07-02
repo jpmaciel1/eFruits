@@ -7,6 +7,7 @@ describe('buying a fruit', () => {
     cy.get('button:contains("Login")').click();
     cy.get('.MuiBackdrop-invisible').click();
     cy.get('button:contains("Comprar")').first().click();
+    cy.get('.Toastify__close-button').click();
     cy.get('#mini-cart').click();
     cy.get('button:contains("Finalizar Compra")').click();
   });

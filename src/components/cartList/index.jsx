@@ -4,7 +4,7 @@ import { Paper, Typography, IconButton } from '@mui/material';
 import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { removeFromCart, addToCart } from '../../store';
-import { Container, ImageWrapper, Image, Card, QuantityContainer } from './styled';
+import { Container, ImageWrapper, Image, Card, QuantityContainer, Main } from './styled';
 
 function CartList() {
   const cartItems = useSelector((state) => state.cart);
@@ -42,7 +42,7 @@ function CartList() {
   );
 
   return (
-    <div>
+    <Main>
       <Typography variant="h5" textAlign="center">Carrinho de Compras</Typography>
       {cartItems.length === 0 ? (
         <p>O carrinho está vazio.</p>
@@ -73,7 +73,7 @@ function CartList() {
           })}
         </Container>
       )}
-    </div>
+    </Main>
   );
 }
 

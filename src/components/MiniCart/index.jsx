@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
+import { Typography, Button, Drawer, Box } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import CartList from '../cartList';
+import { Main } from './styled';
 
 export default function MiniCart() {
   const cart = useSelector((state) => state.cart);
@@ -43,9 +42,9 @@ export default function MiniCart() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       {cart.length === 0 ? (
-        <p>O carrinho está vazio.</p>
+        <Typography variant="h5">O carrinho está vazio.</Typography>
       ) : (
-        <>
+        <Main>
           <CartList onClick={(event) => event.stopPropagation()} />
           <Button
             variant="contained"
@@ -56,7 +55,7 @@ export default function MiniCart() {
           >
             Finalizar Compra
           </Button>
-        </>
+        </Main>
       )}
     </Box>
   );
@@ -64,7 +63,7 @@ export default function MiniCart() {
   return (
     <div>
       <React.Fragment key="right">
-        <Button onClick={toggleDrawer('right', true)} id="mini-cart"><ShoppingCartIcon color="secondary" /></Button>
+        <Button onClick={toggleDrawer('right', true)} id="mini-cart"><ShoppingCartIcon color="primary" /></Button>
         <Drawer
           anchor="right"
           open={state.right}
