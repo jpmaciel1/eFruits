@@ -10,10 +10,14 @@ import Avatar from '@mui/material/Avatar';
 import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { PDFDownloadLink, Document, Page, View, Text, pdf } from '@react-pdf/renderer';
+import { useRouter } from 'next/navigation';
 import { ItemSpecsWrapper, QuantityContainer } from './styled';
 import { removeFromCart, addToCart } from '../../store';
+import { CurrencyFormat } from '../../utils/formatters';
 
 function Invoice({ cartItems, total }) {
+  const router = useRouter();
+
   return (
     <Document>
       <Page>
@@ -28,16 +32,12 @@ function Invoice({ cartItems, total }) {
                 {item.quantity}
               </Text>
               <Text>
-                Preço: R$
-                {' '}
-                {item.preco.toFixed(2)}
+                {`Preço ${CurrencyFormat(item.preco)}`}
               </Text>
             </View>
           ))}
           <Text>
-            Total: R$
-            {' '}
-            {total.toFixed(2)}
+            {`Total: ${CurrencyFormat(total)}`}
           </Text>
         </View>
       </Page>
@@ -115,7 +115,7 @@ function Checkout() {
             <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
               {cartItems.map((item) => {
                 const valorTotal = item.preco * item.quantity;
-                const valorFormatado = `R$ ${valorTotal.toFixed(2)}`;
+                const valorFormatado = CurrencyFormat(valorTotal);
                 return (
                   <React.Fragment key={item.id}>
                     <ListItem alignItems="flex-start">
@@ -151,12 +151,17 @@ function Checkout() {
             <Typography variant="h6" gutterBottom>
               Total
             </Typography>
-            <Typography>{`R$ ${calculateTotal().toFixed(2)}`}</Typography>
+            <Typography>{CurrencyFormat(calculateTotal())}</Typography>
           </Grid>
           <Grid item xs={12}>
             {pdfBlob ? (
               <PDFDownloadLink
-                document={<Invoice cartItems={cartItems} total={calculateTotal()} />}
+                document={(
+                  <Invoice
+                    cartItems={cartItems}
+                    total={CurrencyFormat(calculateTotal())}
+                  />
+              )}
                 fileName="nota_fiscal.pdf"
               >
                 {({ loading }) =>

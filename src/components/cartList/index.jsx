@@ -41,7 +41,7 @@ function CartList() {
 
             return (
               <Card key={item.id}>
-                <Paper elevation={4}>
+                <Paper elevation={4} style={{ maxWidth: '190px' }}>
                   <Container>
                     <ImageWrapper>
                       <Image src={item.imagem} alt="fruit" />

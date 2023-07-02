@@ -1,4 +1,6 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../utils/firebaseConfig';
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -39,7 +41,18 @@ const cartSlice = createSlice({
         myItem.quantity = quantity;
       }
     },
-
+    login: (state, action) => {
+      const { email, password } = action.payload;
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          // Sucesso no login
+          console.log('Usuário logado com sucesso!');
+        })
+        .catch((error) => {
+          // Lidar com erro de login
+          console.error(error);
+        });
+    },
   },
 });
 
@@ -49,6 +62,6 @@ const store = configureStore({
   },
 });
 
-export const { addToCart, removeFromCart, updateQuantity, setQuantity } = cartSlice.actions;
+export const { addToCart, removeFromCart, updateQuantity, setQuantity, login } = cartSlice.actions;
 
 export default store;
