@@ -108,7 +108,7 @@ function Gallery() {
             ))
           )}
         </Grid>
-        <ToastContainer />
+        <ToastContainer limit={3} />
       </Container>
     </>
   );
