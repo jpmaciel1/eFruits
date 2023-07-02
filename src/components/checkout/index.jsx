@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Container, Typography, Grid, Paper, Button, IconButton } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import List from '@mui/material/List';
@@ -56,13 +56,14 @@ function Checkout() {
       return accumulator + itemTotal;
     }, 0);
 
-  const handleRemoveOne = (item) => {
+  const handleRemoveOne = useCallback((item) => {
     dispatch(removeFromCart(item));
-  };
+  }, []);
 
-  const handleAddOne = (item) => {
+  const handleAddOne = useCallback((item) => {
     dispatch(addToCart(item));
-  };
+  }, []);
+
   useEffect(() => {
     const userInfos = JSON.parse(localStorage.getItem('userInfos'));
     if (!userInfos) {
@@ -91,20 +92,17 @@ function Checkout() {
     </QuantityContainer>
   );
 
-  const generatePDF = () => {
+  const generatePDF = useCallback(() => {
     setIsGeneratingPDF(true);
-
     const invoiceContent = (
       <Invoice cartItems={cartItems} total={calculateTotal()} />
     );
-
     const blobPromise = pdf(invoiceContent).toBlob();
-
     blobPromise.then((blob) => {
       setPdfBlob(blob);
       setIsGeneratingPDF(false);
     });
-  };
+  }, []);
 
   return (
     <Container maxWidth="sm" style={{ margin: '10px auto' }}>

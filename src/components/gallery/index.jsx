@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { Button, Typography, IconButton } from '@mui/material';
@@ -17,24 +17,25 @@ import 'react-toastify/dist/ReactToastify.css';
 function Gallery() {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState('');
-  const [filteredData, setFilteredData] = useState([]);
   const notify = (item) => toast.success(`${item} adicionada ao carrinho!`, {
     position: toast.POSITION.BOTTOM_RIGHT,
   });
 
-  const handleAddToCart = (product) => {
+  const handleAddToCart = useCallback((product) => {
     dispatch(addToCart(product));
     notify(product.nome);
-  };
+  }, []);
 
-  const handleSearch = (event) => {
-    const query = event.target.value.toLowerCase();
-    setSearchQuery(query);
+  const handleSearch = useCallback((event) => {
+    setSearchQuery(event.target.value);
+  }, []);
 
-    const filteredItems = data.frutas.filter((item) => item.nome.toLowerCase().includes(query));
+  const filteredData = useMemo(() => {
+    if (!searchQuery.length) return data.frutas;
 
-    setFilteredData(filteredItems);
-  };
+    const queryToCompare = searchQuery.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '');
+    return data.frutas.filter((item) => item.nome.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').includes(queryToCompare));
+  }, [searchQuery, data]);
 
   return (
     <>
@@ -60,7 +61,7 @@ function Gallery() {
 
       <Container>
         <Grid container spacing={4}>
-          {searchQuery !== '' ? (
+          {filteredData.length ? (
             filteredData.map((item) => (
               <Grid item xs={12} md={3} sm={4} key={item.id} display="flex" justifyContent="center">
                 <Paper elevation={3}>
@@ -84,28 +85,7 @@ function Gallery() {
               </Grid>
             ))
           ) : (
-            data.frutas.map((item) => (
-              <Grid item xs={12} md={3} sm={4} key={item.id} display="flex" justifyContent="center">
-                <Paper elevation={3}>
-                  <Wrapper>
-                    <Image src={item.imagem} alt="fruit" />
-                  </Wrapper>
-                  <Typography variant="h5" component="h5" textAlign="center">
-                    {item.nome}
-                  </Typography>
-                  <Typography variant="h5" component="h5" textAlign="center">
-                    {CurrencyFormat(item.preco)}
-                  </Typography>
-                  <Button
-                    variant="contained"
-                    onClick={() => handleAddToCart(item)}
-                    fullWidth
-                  >
-                    Comprar
-                  </Button>
-                </Paper>
-              </Grid>
-            ))
+            <p>Nenhum item encontrado</p>
           )}
         </Grid>
         <ToastContainer limit={3} />
