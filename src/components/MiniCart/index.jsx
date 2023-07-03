@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Typography, Button, Drawer, Box } from '@mui/material';
+import { Typography, Button, Drawer, Box, Tooltip } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
@@ -45,16 +45,18 @@ export default function MiniCart() {
         <Typography variant="h5">O carrinho está vazio.</Typography>
       ) : (
         <Main>
-          <CartList onClick={(event) => event.stopPropagation()} />
-          <Button
-            variant="contained"
-            onClick={handleGoToCheckout}
-            fullWidth
-            id="go-to-checkout"
-            disabled={!userInfos}
-          >
-            Finalizar Compra
-          </Button>
+          <Tooltip title={!userInfos ? 'Você precisa logar para finalizar a compra' : ''} placement="left">
+            <CartList onClick={(event) => event.stopPropagation()} />
+            <Button
+              variant="contained"
+              onClick={handleGoToCheckout}
+              fullWidth
+              id="go-to-checkout"
+              disabled={!userInfos}
+            >
+              Finalizar Compra
+            </Button>
+          </Tooltip>
         </Main>
       )}
     </Box>
