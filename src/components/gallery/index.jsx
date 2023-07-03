@@ -17,13 +17,13 @@ import 'react-toastify/dist/ReactToastify.css';
 function Gallery() {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState('');
-  const notify = (item) => toast.success(`${item} adicionada ao carrinho!`, {
+  const notify = () => toast.success('Fruta adicionada ao carrinho!', {
     position: toast.POSITION.BOTTOM_RIGHT,
   });
 
   const handleAddToCart = useCallback((product) => {
     dispatch(addToCart(product));
-    notify(product.nome);
+    notify();
   }, []);
 
   const handleSearch = useCallback((event) => {
